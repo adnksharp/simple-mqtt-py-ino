@@ -1,4 +1,4 @@
-import json
+from json import loads
 from numpy import cos, sin, array, dot
 from tabulate import tabulate
 
@@ -45,7 +45,7 @@ class Mathematize():
 
     def get(self, client, userdata, msg):
         topic = str(msg.topic)
-        data = json.loads(msg.payload.decode('utf-8'))
+        data = loads(msg.payload.decode('utf-8'))
         self.index(topic, data)
         dt = self.getdt(float(data['time']))
         if dt is None:

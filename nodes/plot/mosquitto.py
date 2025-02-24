@@ -15,6 +15,6 @@ class MQTT():
 
     def exec(self):
         try:
-            self.host.loop_forever()
+            self.host.loop_start()
         except:
             pass
