@@ -16,7 +16,6 @@ MQTT mqtt;
 Pot pot1;
 Pot pot2;
 
-
 void setup()
 {
 	mqtt.led = LEDX;

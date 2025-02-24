@@ -3,19 +3,23 @@ from numpy import cos, sin, array, dot
 from tabulate import tabulate
 import json
 
-def calc(client, userdata, msg):
-    topic = str(msg.topic)
-    data = json.loads(msg.payload.decode('utf-8'))
-    print(topic, data)
+class Mathematize():
+    def __init__(self):
+        pass
+
+    def get(self, client, userdata, msg):
+        topic = str(msg.topic)
+        data = json.loads(msg.payload.decode('utf-8'))
+        print(topic, data)
 
 class MQTT():
-    def __init__(self, version, broker = 'localhost', port = 8080, ka = 60):
+    def __init__(self, version, broker = 'localhost', port = 8080, ka = 60, f = None):
         self.clients: list = []
         self.publish: list = []
         self.qos = 0
         
         self.host = client.Client(version)
-        self.host.on_message = calc
+        self.host.on_message = f
         self.host.connect(str(broker), int(port), int(ka))
 
     def config(self, topic = None, sub = True):
@@ -27,15 +31,15 @@ class MQTT():
             self.qos += 1
 
         else:
-            self.publish.append(None)
-            self.publish[-1] = str(topic)
+            self.publish.append(str(topic))
 
     def exec(self):
         self.host.loop_forever()
 
 if __name__ == '__main__':
     mqttver = client.CallbackAPIVersion.VERSION2
-    mosquitto = MQTT(version = mqttver, broker = 'localhost', port = 1883, ka = 60)
+    math = Mathematize()
+    mosquitto = MQTT(version = mqttver, broker = 'localhost', port = 1883, ka = 60, f = math.get)
     mosquitto.config(sub = True, topic = 'robot/velocidad/izquierda')
     mosquitto.config(sub = True, topic = 'robot/velocidad/derecha')
     mosquitto.config(sub = False, topic = 'robot/posicion')
