@@ -7,6 +7,8 @@
 #else
 	const char* ssid = "SSID";
 	const char* pass = "PASSWORD";
+	const char* host = "10.42.0.1";
+	const char* port = 1883;
 #endif
 
 
@@ -15,8 +17,7 @@ PubSubClient client(web);
 
 struct MQTT
 {
-	char* broker;
-	int port, led;
+	int led;
 
 	void init()
 	{
@@ -26,7 +27,7 @@ struct MQTT
 			digitalWrite(led, !digitalRead(led));
 			delay(50);
 		}
-		client.setServer(broker, port);
+		client.setServer(host, port);
 	}
 
 	void verify()
@@ -64,4 +65,3 @@ struct MQTT
 		client.publish(topic, jsonize(pin).c_str());
 	}
 };
-
