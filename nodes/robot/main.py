@@ -3,6 +3,9 @@ from numpy import cos, sin, array, dot
 from tabulate import tabulate
 import json
 
+def tab(*prints):
+        print(tabulate(prints, floatfmt='.5f', tablefmt='simple_grid'))
+
 class Mathematize():
     def __init__(self, R = 0.02, L = 0.1):
         self.x, self.y, self.theta = 0.0, 0.0, 0.0
@@ -48,8 +51,7 @@ class Mathematize():
         if dt is None:
             return
         self.x, self.y, self.theta = self.getPos(self.getVel(), dt)
-        print(tabulate([self.data, [self.x, self.y, self.theta]], floatfmt='.5f', tablefmt='simple_grid'))
-
+        tab(self.data, [self.x, self.y, self.theta])
 
 class MQTT():
     def __init__(self, version, broker = 'localhost', port = 8080, ka = 60, f = None):
