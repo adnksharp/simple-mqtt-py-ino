@@ -52,7 +52,7 @@ struct MQTT
 	String jsonize(int pin)
 	{
 		JsonDocument json;
-		json["read"] = analogRead(pin);
+		json["read"] = map(analogRead(pin), 0, 4095, 0, 200) - 100;
 		json["time"] = millis();
 
 		String msg;
@@ -62,6 +62,7 @@ struct MQTT
 
 	void publish(char* topic, byte pin)
 	{
+
 		client.publish(topic, jsonize(pin).c_str());
 	}
 };
