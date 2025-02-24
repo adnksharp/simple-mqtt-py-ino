@@ -1,0 +1,4 @@
+paho-mqtt
+numpy ==1.26.4
+matplotlib
+tabulate
